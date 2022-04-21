@@ -188,62 +188,6 @@ def weather(message):
         bot.send_message(ms.chat.id, str(get_weather(ms.text)))
 
 
-def find_wiki(res):
-    try:
-        text = wikipedia.page(res)
-        wktxt = text.content[:900]
-        fnd = wktxt.split(".")[:-1]
-        rsp = ""
-        for el in fnd:
-            if "==" not in el:
-                if len(el.strip()) > 3:
-                    rsp += el + '.'
-            else:
-                break
-
-        return rsp
-
-    except Exception:
-        return "Информация в энциклопедии по данному запросу отсутствует."
-
-
-@bot.message_handler(commands=["wiki"])
-def wiki(message):
-    bot.send_message(message.chat.id, "Введите интересующую Вас информацию:")
-
-    @bot.message_handler(content_types="text")
-    def text_page(mes):
-        bot.send_message(mes.chat.id, find_wiki(mes.text))
-
-
-@bot.message_handler(commands=["dice"])
-def dice(message):
-    prt = choice(dashes)
-    if prt == '\u2680':
-        bot.send_message(message.chat.id, '\u2680')
-        bot.send_message(message.chat.id, choice(d_1))
-
-    elif prt == '\u2681':
-        bot.send_message(message.chat.id, '\u2681')
-        bot.send_message(message.chat.id, choice(d_2))
-
-    elif prt == '\u2682':
-        bot.send_message(message.chat.id, '\u2682')
-        bot.send_message(message.chat.id, choice(d_3))
-
-    elif prt == '\u2683':
-        bot.send_message(message.chat.id, '\u2683')
-        bot.send_message(message.chat.id, choice(d_4))
-
-    elif prt == '\u2684':
-        bot.send_message(message.chat.id, '\u2684')
-        bot.send_message(message.chat.id, choice(d_5))
-
-    elif prt == '\u2685':
-        bot.send_message(message.chat.id, '\u2685')
-        bot.send_message(message.chat.id, choice(d_6))
-
-
 @bot.message_handler(commands=["horoscope"])
 def horo(message):
     bot.send_message(message.chat.id, "Какой у Вас знак зодиака:")
@@ -328,6 +272,62 @@ def horo(message):
                              "Свяжитесь с разработчиком, и мы добавим для Вас ежедневный уникальный гороскоп.")
             crt = open("signs/creature.jpg", "rb")
             bot.send_photo(msg.chat.id, crt)
+
+
+@bot.message_handler(commands=["dice"])
+def dice(message):
+    prt = choice(dashes)
+    if prt == '\u2680':
+        bot.send_message(message.chat.id, '\u2680')
+        bot.send_message(message.chat.id, choice(d_1))
+
+    elif prt == '\u2681':
+        bot.send_message(message.chat.id, '\u2681')
+        bot.send_message(message.chat.id, choice(d_2))
+
+    elif prt == '\u2682':
+        bot.send_message(message.chat.id, '\u2682')
+        bot.send_message(message.chat.id, choice(d_3))
+
+    elif prt == '\u2683':
+        bot.send_message(message.chat.id, '\u2683')
+        bot.send_message(message.chat.id, choice(d_4))
+
+    elif prt == '\u2684':
+        bot.send_message(message.chat.id, '\u2684')
+        bot.send_message(message.chat.id, choice(d_5))
+
+    elif prt == '\u2685':
+        bot.send_message(message.chat.id, '\u2685')
+        bot.send_message(message.chat.id, choice(d_6))
+
+
+def find_wiki(res):
+    try:
+        text = wikipedia.page(res)
+        wktxt = text.content[:900]
+        fnd = wktxt.split(".")[:-1]
+        rsp = ""
+        for el in fnd:
+            if "==" not in el:
+                if len(el.strip()) > 3:
+                    rsp += el + '.'
+            else:
+                break
+
+        return rsp
+
+    except Exception:
+        return "Информация в энциклопедии по данному запросу отсутствует."
+
+
+@bot.message_handler(commands=["wiki"])
+def wiki(message):
+    bot.send_message(message.chat.id, "Введите интересующую Вас информацию:")
+
+    @bot.message_handler(content_types="text")
+    def text_page(mes):
+        bot.send_message(mes.chat.id, find_wiki(mes.text))
 
 
 bot.polling()
